@@ -1,8 +1,8 @@
 """mans and users models
 
-Revision ID: b6daaaf5727c
+Revision ID: 5b4f4f77f584
 Revises: 
-Create Date: 2024-09-22 14:33:16.447124
+Create Date: 2024-09-22 23:13:00.542987
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'b6daaaf5727c'
+revision: str = '5b4f4f77f584'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -48,7 +48,6 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('cat_id', 'man_id')
     )
     op.create_table('user',
-    sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=20), nullable=False),
     sa.Column('registered_at', sa.DateTime(), nullable=False),
     sa.Column('role_id', sa.Integer(), nullable=False),
@@ -57,6 +56,7 @@ def upgrade() -> None:
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.Column('is_superuser', sa.Boolean(), nullable=False),
     sa.Column('is_verified', sa.Boolean(), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['role_id'], ['roles.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

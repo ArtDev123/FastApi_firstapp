@@ -2,7 +2,6 @@ __all__ = (
     "Base",
     "User",
     "Man",
-    "AccessToken",
 )
 
 from .base import Base

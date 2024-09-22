@@ -1,10 +1,16 @@
 from fastapi import FastAPI
 
-from app.core.models.users import Man
+from core.models.mans import Man
 
-app = FastAPI(
-    title = "My first app"
-)
+from core.auth.routers import router
+from core.auth.manager import get_user_manager
+from core.auth.backend import auth_backend
+
+from fastapi_users import FastAPIUsers
+from core.models.users import User
+
+
+app = FastAPI()
 
 @app.get('/hello')
 async def hello():
@@ -14,6 +20,7 @@ async def hello():
 async def get_users(man_id: int | None = None):
     pass
 
+app.include_router(router)
 # @app.post('/mans/{man_id}')
 # async def create_man(man_id: int, name: str, role: str = "user"):
 #     fake_users.append({

@@ -17,7 +17,7 @@ category_man = Table(
 class Category(Base):
     cat_name: Mapped[str] = mapped_column(String(20))
     mans: Mapped[List["Man"]] = relationship(
-        secondary=category_man, back_populates="cats"
+        secondary=category_man, back_populates="categories"
     )
 
 class Man(Base):
