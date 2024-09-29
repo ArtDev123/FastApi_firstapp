@@ -1,9 +1,11 @@
 __all__ = (
     "Base",
-    "User",
     "Man",
+    "User",
+    "Product",
 )
 
 from .base import Base
-from .users import User
 from .mans import Man
+from .products import Product
+from .user import User

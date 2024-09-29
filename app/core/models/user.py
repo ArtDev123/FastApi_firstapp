@@ -7,11 +7,8 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 
 from sqlalchemy import Integer, ForeignKey, DateTime, String, JSON
 
-from core.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
-from .base import Base
-
-
-DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+from core.config import DATABASE_URL
+from core.models import Base
 
 class Role(Base):
     name: Mapped[str] = mapped_column(String(20), nullable=False)
@@ -20,7 +17,8 @@ class Role(Base):
 class User(SQLAlchemyBaseUserTable[int], Base):
     username: Mapped[str] = mapped_column(String(20), nullable=False)
     registered_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
-    role_id: Mapped[int] = mapped_column(ForeignKey("roles.id"))
+    role_id: Mapped[int] = mapped_column(ForeignKey("roles.id"), default=1)
+
 
 engine = create_async_engine(DATABASE_URL)
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
@@ -31,9 +29,3 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
 
 async def get_user_db(cls, session: AsyncSession = Depends(get_async_session)):
     yield SQLAlchemyUserDatabase(session, User)
-
-
-
-
-
-

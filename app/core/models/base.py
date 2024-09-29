@@ -1,5 +1,11 @@
 from sqlalchemy.orm import DeclarativeBase, declared_attr, Mapped, mapped_column
 
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy.orm import sessionmaker
+
+from ..config import DATABASE_URL
+
 class Base(DeclarativeBase):
     __abstract__ = True
 
